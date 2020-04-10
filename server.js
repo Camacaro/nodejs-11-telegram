@@ -1,7 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-
+const db = require('./db')
 const router = require('./network/routes')
+
+db('mongodb://usertelegrom:usertelegrom123@ds033096.mlab.com:33096/telegrom')
 
 var app = express()
 

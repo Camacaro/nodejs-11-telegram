@@ -18,8 +18,6 @@ function addMessage(user, message) {
         }
 
         store.add(fullMessage)
-    
-        console.log(fullMessage);
         resolve(fullMessage);
     } )
 }
