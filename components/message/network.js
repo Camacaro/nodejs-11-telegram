@@ -6,7 +6,9 @@ const controller = require('./controller')
 
 router.get('/', function (req, res) {
     
-    controller.getMessages()
+    const filterMessages = req.query.user || null;
+
+    controller.getMessages( filterMessages )
     .then(
         (messageList) => {
             response.succes(req, res, messageList, 200)
@@ -19,8 +21,7 @@ router.get('/', function (req, res) {
     )
 })
 
-router.post('/', function (req, res) {
-    
+router.post('/', function (req, res) {   
     
     controller.addMessage(req.body.user, req.body.message)
     .then(
@@ -31,6 +32,36 @@ router.post('/', function (req, res) {
     .catch(
         (e) => {
             response.error(req, res, e, 400, 'error')
+        }
+    )
+})
+
+router.patch('/:id', function (req, res) {   
+
+    controller.updateMessage(req.params.id, req.body.message)
+    .then(
+        (data) => {
+            response.succes(res, res, data, 200)
+        }
+    )
+    .catch(
+        (e) => {
+            response.error(req, res, 'Error intermo', 500, e)
+        }
+    )
+})
+
+router.delete('/:id', function (req, res) {   
+
+    controller.deleteMessage(req.params.id)
+    .then(
+        () => {
+            response.succes(res, res, `Usuario ${req.params.id} eliminado`, 200)
+        }
+    )
+    .catch(
+        (e) => {
+            response.error(req, res, 'Error intermo', 500, e)
         }
     )
 })
