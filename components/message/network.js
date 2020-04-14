@@ -6,7 +6,7 @@ const controller = require('./controller')
 
 router.get('/', function (req, res) {
     
-    const filterMessages = req.query.user || null;
+    const filterMessages = req.query.chat || null;
 
     controller.getMessages( filterMessages )
     .then(
@@ -23,7 +23,7 @@ router.get('/', function (req, res) {
 
 router.post('/', function (req, res) {   
     
-    controller.addMessage(req.body.user, req.body.message)
+    controller.addMessage(req.body.chat, req.body.user, req.body.message)
     .then(
         ( fullMessage ) => {
             response.succes(req, res, fullMessage, 201)
